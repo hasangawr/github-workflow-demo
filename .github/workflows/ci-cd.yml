@@ -77,14 +77,14 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Generate test report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: Jest Tests
-          path: "test-results.xml"
-          reporter: jest-junit
-          fail-on-error: true
+    #   - name: Generate test report
+    #     uses: dorny/test-reporter@v1
+    #     if: success() || failure()
+    #     with:
+    #       name: Jest Tests
+    #       path: "test-results.xml"
+    #       reporter: jest-junit
+    #       fail-on-error: true
 
   # SECURITY SCAN
   security:
