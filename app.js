@@ -8,7 +8,7 @@ app.use(express.json());
 // Basic route
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to GitHub Workflow Demo!",
+    message: "Welcome to GitHub Workflow Demo - test!",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
