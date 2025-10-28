@@ -9,7 +9,7 @@ describe("GitHub Workflow Demo App", () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty(
         "message",
-        "Welcome to GitHub Workflow Demo - test!"
+        "Welcome to GitHub Workflow Demo - test123!"
       );
       expect(response.body).toHaveProperty("version", "1.0.0");
       expect(response.body).toHaveProperty("timestamp");
