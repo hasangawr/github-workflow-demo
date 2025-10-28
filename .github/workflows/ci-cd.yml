@@ -39,12 +39,10 @@ jobs:
       - name: Cache build artifacts
         uses: actions/cache@v3
         with:
-          path: |
-            node_modules
-            ./*
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json', 'yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-node-modules-
 
   # TEST STAGE
   test:
@@ -65,10 +63,8 @@ jobs:
       - name: Restore build cache
         uses: actions/cache@v3
         with:
-          path: |
-            node_modules
-            ./*
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json', 'yarn.lock') }}
 
       - name: Install dependencies (if cache miss)
         run: |
