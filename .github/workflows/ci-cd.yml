@@ -26,9 +26,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
-      - name: Login to AWS CodeArtifact
-        run: npm run login:aws
-
       - name: Install dependencies
         run: npm ci
 

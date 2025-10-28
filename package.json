@@ -9,8 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "echo 'Build completed successfully'",
-    "lint": "echo 'Linting completed successfully'",
-    "login:aws": "aws codeartifact login --tool npm --repository fused --domain evoke --domain-owner 269280350252 --region us-east-1"
+    "lint": "echo 'Linting completed successfully'"
   },
   "keywords": [
     "nodejs",
