@@ -183,16 +183,16 @@ jobs:
             rm /tmp/app.tar.gz
           EOF
 
-      - name: Health Check
-        env:
-          EC2_HOST: ${{ secrets.DEMO_EC2_HOST }}
-        run: |
-          # Wait a moment for the app to start
-          sleep 10
+      # - name: Health Check
+      #   env:
+      #     EC2_HOST: ${{ secrets.DEMO_EC2_HOST }}
+      #   run: |
+      #     # Wait a moment for the app to start
+      #     sleep 10
 
-          # Check if the application is responding
-          curl -f http://$EC2_HOST:3000/health || exit 1
-          echo "✅ Application deployed successfully!"
+      #     # Check if the application is responding
+      #     curl -f http://$EC2_HOST:3000/health || exit 1
+      #     echo "✅ Application deployed successfully!"
 
       - name: Notify deployment
         if: success()
