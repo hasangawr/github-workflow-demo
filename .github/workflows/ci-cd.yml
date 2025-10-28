@@ -158,16 +158,18 @@ jobs:
             sudo mkdir -p /home/ec2-user/github-workflow-demo
             sudo chown ec2-user:ec2-user /home/ec2-user/github-workflow-demo
             
-            # Stop existing application
-            sudo pkill -f "node app.js" || true
+            # Stop existing application using PM2
+            pm2 stop github-workflow-demo 2>/dev/null || true
+            pm2 delete github-workflow-demo 2>/dev/null || true
             
-            # Backup current version
-            if [ -d "/home/ec2-user/github-workflow-demo" ]; then
-              sudo mv /home/ec2-user/github-workflow-demo /home/ec2-user/github-workflow-demo.backup.$(date +%Y%m%d_%H%M%S)
+            # Backup current version (backup files, not the directory)
+            if [ -f "/home/ec2-user/github-workflow-demo/app.js" ]; then
+              sudo mkdir -p /home/ec2-user/backups
+              sudo cp -r /home/ec2-user/github-workflow-demo /home/ec2-user/backups/github-workflow-demo.backup.$(date +%Y%m%d_%H%M%S)
             fi
             
-            # Extract new version
-            mkdir -p /home/ec2-user/github-workflow-demo
+            # Clear current directory and extract new version
+            rm -rf /home/ec2-user/github-workflow-demo/*
             cd /home/ec2-user/github-workflow-demo
             tar -xzf /tmp/app.tar.gz
             
@@ -175,12 +177,16 @@ jobs:
             which pm2 || sudo npm install -g pm2
             
             # Start application with PM2
-            NODE_ENV=production PORT=3000 pm2 start app.js --name "github-workflow-demo" --update-env
+            NODE_ENV=production PORT=3000 pm2 start app.js --name "github-workflow-demo"
             pm2 save
             pm2 startup systemd -u ec2-user --hp /home/ec2-user
             
             # Clean up
             rm /tmp/app.tar.gz
+            
+            # Verify deployment
+            echo "✅ Deployment completed. Checking PM2 status:"
+            pm2 list
           EOF
 
       # - name: Health Check
