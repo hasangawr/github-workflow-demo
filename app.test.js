@@ -116,4 +116,17 @@ describe("GitHub Workflow Demo App", () => {
       expect(response.body).toHaveProperty("error", "Endpoint not found");
     });
   });
+
+  describe("Error handling", () => {
+    it("should handle server errors gracefully", async () => {
+      // This test simulates an error by making a request to an endpoint that throws
+      // Note: In a real app, you might need to mock an error condition
+      const response = await request(app)
+        .post("/api/calculate")
+        .send({ operation: "add", a: "not-a-number", b: 3 });
+
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty("error");
+    });
+  });
 });
