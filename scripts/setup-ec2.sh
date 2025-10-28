@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# EC2 Setup Script - Run this once on your EC2 instance
-# This script prepares the EC2 instance for the Node.js application
+# Prepares the EC2 instance for the Node.js application
 
 set -e
 

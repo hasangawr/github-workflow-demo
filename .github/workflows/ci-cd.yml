@@ -77,15 +77,6 @@ jobs:
       - name: Run tests
         run: npm test
 
-    #   - name: Generate test report
-    #     uses: dorny/test-reporter@v1
-    #     if: success() || failure()
-    #     with:
-    #       name: Jest Tests
-    #       path: "test-results.xml"
-    #       reporter: jest-junit
-    #       fail-on-error: true
-
   # SECURITY SCAN
   security:
     name: 🔒 Security Scan
@@ -188,17 +179,6 @@ jobs:
             echo "✅ Deployment completed. Checking PM2 status:"
             pm2 list
           EOF
-
-      # - name: Health Check
-      #   env:
-      #     EC2_HOST: ${{ secrets.DEMO_EC2_HOST }}
-      #   run: |
-      #     # Wait a moment for the app to start
-      #     sleep 10
-
-      #     # Check if the application is responding
-      #     curl -f http://$EC2_HOST:3000/health || exit 1
-      #     echo "✅ Application deployed successfully!"
 
       - name: Notify deployment
         if: success()

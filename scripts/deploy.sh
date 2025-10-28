@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# EC2 Deployment Script for GitHub Workflow Demo
-# This script deploys the Node.js application to an EC2 instance
+# Deploys the Node.js application to an EC2 instance
 
 set -e
 
@@ -38,7 +37,7 @@ cd $APP_DIR
 rm -rf ./* 2>/dev/null || true
 tar -xzf /tmp/app.tar.gz
 
-# Install dependencies (already done during build, but just in case)
+# Install dependencies
 echo "📦 Installing dependencies..."
 npm ci --production --silent
 

@@ -2,10 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 
-// Basic route
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to GitHub Workflow Demo - test123!",
@@ -15,7 +13,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Health check endpoint
 app.get("/health", (req, res) => {
   res.json({
     status: "healthy",
@@ -24,7 +21,6 @@ app.get("/health", (req, res) => {
   });
 });
 
-// API endpoint for demo
 app.get("/api/demo", (req, res) => {
   res.json({
     message: "This is a demo API endpoint",
@@ -41,7 +37,6 @@ app.get("/api/demo", (req, res) => {
   });
 });
 
-// Simple calculator endpoint for testing
 app.post("/api/calculate", (req, res) => {
   const { operation, a, b } = req.body;
 
@@ -80,7 +75,6 @@ app.post("/api/calculate", (req, res) => {
   });
 });
 
-// 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({
     error: "Endpoint not found",
@@ -88,7 +82,6 @@ app.use("*", (req, res) => {
   });
 });
 
-// Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -100,14 +93,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
 const server = app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`🔗 API demo: http://localhost:${PORT}/api/demo`);
 });
 
-// Graceful shutdown
 process.on("SIGTERM", () => {
   console.log("SIGTERM received, shutting down gracefully");
   server.close(() => {
