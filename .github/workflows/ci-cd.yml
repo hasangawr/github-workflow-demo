@@ -24,16 +24,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-          registry-url: "https://registry.npmjs.org"
 
-      - name: Clear npm cache
-        run: npm cache clean --force
+      - name: Configure npm registry
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ""
+        run: npm install --registry https://registry.npmjs.org
 
       - name: Run build
         run: npm run build
@@ -62,8 +61,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Restore build cache
         uses: actions/cache@v3
@@ -73,10 +70,13 @@ jobs:
             ./*
           key: ${{ runner.os }}-build-${{ github.sha }}
 
+      - name: Configure npm registry
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config delete //registry.npmjs.org/:_authToken || true
+
       - name: Install dependencies (if cache miss)
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ""
+        run: npm install --registry https://registry.npmjs.org
 
       - name: Run linting
         run: npm run lint
@@ -122,17 +122,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: "https://registry.npmjs.org"
 
       - name: Create deployment package
         run: |
           mkdir -p deploy
           cp -r . deploy/
           cd deploy
-          npm ci --production
+          npm config set registry https://registry.npmjs.org/
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm install --production --registry https://registry.npmjs.org
           tar -czf ../app.tar.gz .
-        env:
-          NODE_AUTH_TOKEN: ""
 
       - name: Deploy to EC2
         env:
