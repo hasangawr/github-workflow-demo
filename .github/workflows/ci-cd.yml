@@ -119,8 +119,18 @@ jobs:
 
       - name: Create deployment package
         run: |
+          # Create deployment package by copying specific files/directories
           mkdir -p deploy
-          cp -r . deploy/
+
+          # Copy application files
+          cp package.json deploy/
+          cp app.js deploy/
+          cp -r scripts deploy/ 2>/dev/null || echo "No scripts directory"
+
+          # Copy other necessary files
+          cp README.md deploy/ 2>/dev/null || echo "No README.md"
+          cp jest.config.js deploy/ 2>/dev/null || echo "No jest.config.js"
+
           cd deploy
           npm install -g yarn --registry https://registry.npmjs.org/
           yarn install --production --registry https://registry.npmjs.org/
