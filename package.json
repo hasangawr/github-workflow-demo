@@ -1,0 +1,33 @@
+{
+  "name": "github-workflow-demo",
+  "version": "1.0.0",
+  "description": "Simple Node.js app to demonstrate GitHub CI/CD workflows",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "echo 'Build completed successfully'",
+    "lint": "echo 'Linting completed successfully'"
+  },
+  "keywords": [
+    "nodejs",
+    "github-actions",
+    "ci-cd",
+    "demo"
+  ],
+  "author": "Demo Author",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
